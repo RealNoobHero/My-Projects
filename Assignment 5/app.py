@@ -1,5 +1,6 @@
 # Date: 7/14/2023
-# Mark Marrero
+# Mark Marrero Jr 
+# Copyright Mark Marrero Jr 2023 all rights reserved
 
 from flask import Flask, render_template, request, redirect
 from flask_mysqldb import MySQL
