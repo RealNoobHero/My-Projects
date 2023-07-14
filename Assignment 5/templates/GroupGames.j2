@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='robots' content='noindex,noarchive,nofollow'>
+    <title>Game Night Group Games Tracker</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+    <script language="JavaScript">
+        function see_stuff(stuff){
+            if (stuff == 'newGroup'){
+            document.getElementById('newGroup').style.display = 'block';
+            document.getElementById('edit_Group').style.display = 'none';
+            }
+            else if (stuff == 'edit_Group'){
+            document.getElementById('newGroup').style.display = 'none';
+            document.getElementById(edit_Group).style.display = 'block';
+            }
+            else if (stuff == 'everything'){
+                document.getElementById('newGroup').style.display = 'block'
+                document.getElementById('edit_Group').style.display = 'block'
+            }
+            else {
+            document.getElementById('newGroup').style.display = 'none';
+            document.getElementById('edit_Group').style.display = 'none';
+            }
+        }
+        function newGroup(){
+            see_stuff('newGroup');
+        }
+        function edit_Group(){
+            see_stuff('edit_Group');
+        }
+        function everything(){
+            see_stuff('everything');
+        }
+    </script>
+
+</head>
+<body onload="see_stuff('everything')">
+    <header>
+        <h1>Game Night</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="players">Players Information</a>
+        <a href="groups">Groups</a>
+        <a href="games">Games</a>
+        <a href="groupgames">Group Games</a>
+        <a href = "groupmembership">Group Membership</a>
+        <a href="events">Events</a>
+    </nav>
+
+    <h2>Games Currently Played by Each Group</h2>
+
+
+<table id="groupgames list" style="display: hidden" border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Group Game ID</th>
+            <th>Group ID</th>
+            <th>Game ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in GroupGames %}
+        <tr>
+            {% for key in entry.keys() %}
+            <td>{{entry[key]}}</td>
+            {% endfor %}
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>&nbsp;</p>
+<div id="newGroupGame">
+        <form method="POST" action="/groupgames" id="add_GroupGame">
+            <legend><strong>Add New Group Game</strong></legend>
+                <fieldset class="fields">
+                    <label for="groupid">Group ID</label><select name ="groupid">
+                        {% for group in GamerGroups %}
+                        <option value={{group.groupid}}>{{group.groupid, group.groupname}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="gameid">Game ID</label><select name ="gameid">
+                        {% for game in Games %}
+                        <option value={{game.gameid}}>{{game.gameid, game.name}}</option>
+                        {% endfor %}
+                        </select>
+            </fieldset> 
+            <input class="btn" type="submit" name="add_GroupGame" value="Add a New GroupGame"/input>
+            <a href="groupgames"><input type="button" value="Cancel" /input></a>
+    </form>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="edit_GroupGame">
+    <form method="POST" action="/groupgames" id="editGroupGame">
+          <legend><strong>Update Existing GroupGame</strong></legend>  
+          <fieldset class="fields">
+            <label for="groupgameid">Group Game ID</label><select name ="groupgameid">
+                {% for entry in GroupGames %}
+                <option value={{entry.groupgamesid}}>{{entry.groupgamesid}}</option>
+                {% endfor %}
+                </select>
+                   <label for="groupid">Group ID</label><select name ="groupid">
+                        {% for group in GamerGroups %}
+                        <option value={{group.groupid}}>{{group.groupid, group.groupname}}</option>
+                        {% endfor %}
+                    </select>
+                 <label for="gameid">Game ID</label><select name ="gameid">
+                        {% for game in Games %}
+                        <option value={{game.gameid}}>{{game.gameid, game.name}}</option>
+                        {% endfor %}
+                        </select>
+          </fieldset>
+            <input class="btn" type="submit" name="editGroupGame" value="Update Group Game"/input>
+            <a href="groupgames"><input type="button" value="Cancel" /input></a>
+        </form>
+</div>
+<p>&nbsp;</p>
+
+<footer>
+    <p>&copy; 2023 Mark Marrero</p>
+</footer>
+
+</body>
+</html>

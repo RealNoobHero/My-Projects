@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='robots' content='noindex,noarchive,nofollow'>
+    <title>Game Night Edit Event</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+    <script language="JavaScript">
+        function see_stuff(stuff){
+            if (stuff == 'everything'){
+                document.getElementById('newEvent').style.display = 'block'
+                document.getElementById('edit_Event').style.display = 'block'
+            }
+
+        }
+        function everything(){
+            see_stuff('everything');
+        }
+    </script>
+
+</head>
+<body onload="see_stuff('everything')">
+    <header>
+        <h1>Game Night</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="players">Players Information</a>
+        <a href="groups">Groups</a>
+        <a href="games">Games</a>
+        <a href="groupgames">Group Games</a>
+        <a href = "groupmembership">Group Membership</a>
+        <a href="/events">Events</a>
+    </nav>
+
+    <h2>Edit Event</h2>
+
+    <form action="/events/{{ event.id }}/edit" method="POST">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" value="{{ event.title }}" required>
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" value="{{ event.date.strftime('%Y-%m-%d') }}" required>
+        </div>
+        <div>
+            <input type="submit" value="Save">
+            <a href="/events"><input type="button" value="Cancel" /input></a>
+        </div>
+    </form>
+
+    <footer>
+        <p>&copy; 2023 Mark Marrero</p>
+    </footer>
+        
+</body>
+</html>
