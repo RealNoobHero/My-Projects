@@ -1,3 +1,4 @@
+--Copyright 2023 Mark Marrero Jr, all rights reserved--
 create database if not exists gameappdb;
 
 create table if not exists Players(
