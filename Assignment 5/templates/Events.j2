@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='robots' content='noindex,noarchive,nofollow'>
+    <title>Game Night Event Calendar</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+    <script language="JavaScript">
+        function see_stuff(stuff){
+            if (stuff == 'newGame'){
+            document.getElementById('newEvent').style.display = 'block';
+            document.getElementById('edit_Event').style.display = 'none';
+            }
+            else if (stuff == 'edit_Game'){
+            document.getElementById('newEvent').style.display = 'none';
+            document.getElementById(edit_Event).style.display = 'block';
+            }
+            else if (stuff == 'everything'){
+                document.getElementById('newEvent').style.display = 'block'
+                document.getElementById('edit_Event').style.display = 'block'
+            }
+            else {
+            document.getElementById('newEvent').style.display = 'none';
+            document.getElementById('edit_Event').style.display = 'none';
+            }
+        }
+        function newEvent(){
+            see_stuff('newEvent');
+        }
+        function edit_Event(){
+            see_stuff('edit_Event');
+        }
+        function everything(){
+            see_stuff('everything');
+        }
+    </script>
+
+</head>
+<body onload="see_stuff('everything')">
+    <header>
+        <h1>Game Night</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="players">Players Information</a>
+        <a href="groups">Groups</a>
+        <a href="games">Games</a>
+        <a href="groupgames">Group Games</a>
+        <a href = "groupmembership">Group Membership</a>
+        <a href="events">Events</a>
+    </nav>
+
+    <h2>Events</h2>
+    
+        <div>
+            <a href="/events/create">Create Event</a>
+        </div>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+            <p>Warning, deleting an event is final. Be sure you want to delete this event.</p>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.date }}</td>
+                <td>{{ event.title }}</td>
+                <td>
+                    <a href="/events/{{ event.id }}/edit">Edit</a>
+                    <a href="/events/{{ event.id }}/delete">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+<footer>
+    <p>&copy; 2023 Mark Marrero Jr.</p>
+</footer>
+
+</body>
+</html>

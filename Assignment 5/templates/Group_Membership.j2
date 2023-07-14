@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='robots' content='noindex,noarchive,nofollow'>
+    <title>Game Night Group Membership</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href="{{ url_for('static', filename='main.css') }}">
+    <script language="JavaScript">
+        function see_stuff(stuff){
+            if (stuff == 'newGame'){
+            document.getElementById('newGame').style.display = 'block';
+            document.getElementById('edit_Game').style.display = 'none';
+            }
+            else if (stuff == 'edit_Game'){
+            document.getElementById('newGame').style.display = 'none';
+            document.getElementById(edit_Game).style.display = 'block';
+            }
+            else if (stuff == 'everything'){
+                document.getElementById('newGame').style.display = 'block'
+                document.getElementById('edit_Game').style.display = 'block'
+            }
+            else {
+            document.getElementById('newGame').style.display = 'none';
+            document.getElementById('edit_Game').style.display = 'none';
+            }
+        }
+        function newGame(){
+            see_stuff('newGame');
+        }
+        function edit_Game(){
+            see_stuff('edit_Game');
+        }
+        function everything(){
+            see_stuff('everything');
+        }
+    </script>
+
+</head>
+<body onload="see_stuff('everything')">
+    <header>
+        <h1>Game Night</h1>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="players">Players Information</a>
+        <a href="groups">Groups</a>
+        <a href="games">Games</a>
+        <a href="groupgames">Group Games</a>
+        <a href = "groupmembership">Group Membership</a>
+        <a href="events">Events</a>
+    </nav>
+
+    <h2>Group Membership</h2>
+
+
+<table id="groupmembership" style="display: hidden" border="1" cellpadding="10">
+    <thead>
+        <tr>
+        
+            <th>Group Membership ID</th>
+            <th>Group ID</th>
+            <th>Player ID</th>
+            <th>Join Date</th>
+            <th>Current Player?</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for member in GroupMemberships %}
+        <tr>
+         
+            {% for key in member.keys() %}
+            <td>{{member[key]}}</td>
+            {% endfor %}
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>&nbsp;</p>
+<div id="newGroupMembership">
+        <form method="POST" action="/groupmembership" id="add_GroupMembership">
+            <legend><strong>Add New Group Member</strong></legend>
+                <fieldset class="fields">
+                    <label for="groupid">Group ID</label><select name ="groupid">
+                        {% for group in GamerGroups %}
+                        <option value={{group.groupid}}>{{group.groupid, group.groupname}}</option>
+                        {% endfor %}
+                        </select>
+                    <label for="playerid">Player ID</label><select name ="playerid">
+                        {% for player in Players %}
+                        <option value={{player.playerid}}>{{player.playerid, player.name}}</option>
+                        {% endfor %}
+                        </select>
+                    <label for="datejoin">Join Date<input type="date" name="datejoin" id="datejoin" value="datejoin.strftime('%Y-%d-%m')></label>
+                    <label for="currentplayer">Current Player?<select name="currentplayer">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </fieldset> 
+            <input class="btn" type="submit" name="add_GroupMembership" value="Add a New GroupMemberships"/input>
+            <a href="groupmembership"><input type="button" value="Cancel" /input></a>
+    </form>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div id="edit_GroupMembership">
+    <form method="POST" action="/groupmembership" id="editGroupMembership">
+          <legend><strong>Update Existing Group Members</strong></legend>  
+          <fieldset class="fields">
+            <label for="groupmembershipid">Group Membership ID</label><select name ="groupmembershipid">
+                {% for entry in GroupMemberships %}
+                <option value={{entry.groupmembershipid}}>{{entry.groupmembershipid}}</option>
+                {% endfor %}
+                </select>
+                <label for="groupid">Group ID</label><select name ="groupid">
+                        {% for group in GamerGroups %}
+                        <option value={{group.groupid}}>{{group.groupid, group.groupname}}</option>
+                        {% endfor %}
+                    </select>
+                 <label for="playerid">Player ID</label><select name ="playerid">
+                        {% for player in Players %}
+                        <option value={{player.playerid}}>{{player.playerid, player.name}}</option>
+                        {% endfor %}
+                        </select>
+                 <label for="datejoin">Join Date<input type="date" name="datejoin" id="datejoin" value="datejoin.strftime('%Y-%d-%m')></label>
+                 <label for="currentplayer">Current Player?<select name="currentplayer">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+          </fieldset>
+            <input class="btn" type="submit" name="editGroupMembership" value="Update Group Membership"/input>
+            <a href="groupmembership"><input type="button" value="Cancel" /input></a>
+        </form>
+</div>
+<p>&nbsp;</p>
+
+<footer>
+    <p>&copy; 2023 Mark Marrero Jr.</p>
+</footer>
+
+</body>
+</html>
