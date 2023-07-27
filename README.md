@@ -16,3 +16,4 @@ The blood_sample microservice then outputs the total numbers needed, contaminate
 blood_sample.txt for this information. Then formats it as human readable and prints this information directly into the CLI interface.
 
 ![uml diagram](/CS-361/Assignment 9/Screenshot (54).png?raw=true "UML diagram title")
+![uml diagram](https://github.com/RealNoobHero/CS-361/blob/main/Assignment%209/Screenshot%20(54).png)
