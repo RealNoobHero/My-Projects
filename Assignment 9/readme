@@ -13,4 +13,4 @@ and finds the requested dates for the requested collection unit, pulls the numbe
 The blood_sample microservice then outputs the total numbers needed, contaminated samples first, to blood_sample.txt. The ui monitors
 blood_sample.txt for this information. Then formats it as human readable and prints this information directly into the CLI interface.
 
-![alt text](https://github.com/RealNoobHero/CS-361/blob/main/Assignment%209/Screenshot%20(54).png)
+![uml diagram](/repository/Assignment 9/Screenshot (54).png)
